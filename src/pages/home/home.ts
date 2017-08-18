@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController,NavParams } from 'ionic-angular';
-import { ForecastPage } from '../forecast/forecast'
-import { Http } from '@angular/http'
-import 'rxjs/add/operator/map'
+import { NavController } from 'ionic-angular';
+import { WeatherProvider } from '../../providers/weather/weather';
+import { Geolocation } from '@ionic-native/geolocation'
+
 
 
 @Component({
@@ -10,33 +10,29 @@ import 'rxjs/add/operator/map'
   templateUrl: 'home.html'
 })
 export class HomePage {
-weatherArray = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) {
-    this.http.get("http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a1")
-    .map(res => res.json())
-    .subscribe(
-      data => {
-        console.log (data.results)
-          this.weatherArray = data.results; 
-      }, 
-      err => {
+weatherList: any;
+weatherProvider: any; 
+location: string; 
 
-      },
-      ()=> {
-        console.log('everything is done ! ')
-      }
-    )  
+  constructor(public navCtrl: NavController, weatherProvider: WeatherProvider, public geolocation : Geolocation ) {
+    
+this.weatherProvider = weatherProvider;
+} 
+
+ weatherTapped(location){
+    this.geolocation.getCurrentPosition().then((position) => {
+      this.weatherProvider.getCurrentWeather(position.coords.latitude, position.coords.longitude).subscribe(
+        data => {
+          this.weatherList = data
+          console.log(this.weatherList)
+          this.location = data.name
+        },
+        err => console.log("error is "+ err),
+        () => console.log('read user Completed' + this.weatherList)
+        );
+    },(err) => {
+      console.log(err);
+    });
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
-  }
-
-  itemTapped(user){
-  	this.navCtrl.push(ForecastPage, {weather:name});
-  	
-  }
-
 }
- 

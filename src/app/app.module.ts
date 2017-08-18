@@ -10,10 +10,15 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ForecastPage } from '../pages/forecast/forecast'; 
 import { WeatherDetailPage } from '../pages/weather-detail/weather-detail'; 
 
+import { HttpModule } from '@angular/http'
 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { WeatherProvider } from '../providers/weather/weather';
+import { ConstantProvider } from '../providers/constant/constant';
+import { Geolocation } from '@ionic-native/geolocation';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +32,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp), 
+    HttpModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,7 +48,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    WeatherProvider,
+    ConstantProvider, 
+    Geolocation
   ]
 })
 export class AppModule {}

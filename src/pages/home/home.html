@@ -26,7 +26,8 @@
           </ion-thumbnail>
 	<h3>{{weatherList.weather[0].main}}</h3>
 	<p>{{weatherList.weather[0].description}}</p>
-	<p>{{weatherList.main.temp_min  - 273 | number : '1.2-2'}} {{weatherList.main.temp_max - 273 | number : '1.2-2'}} </p>
+	<p>Low: {{weatherList.main.temp_min  - 273 | number : '1.2-2'}}</p><p>
+	 High:{{weatherList.main.temp_max - 273 | number : '1.2-2'}} </p>
 </div>
 
 </ion-list>

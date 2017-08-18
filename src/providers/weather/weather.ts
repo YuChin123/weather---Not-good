@@ -19,14 +19,14 @@ export class WeatherProvider {
   constructor(public http: Http, constantVar : ConstantProvider) {
    this.constantVar = constantVar; 
   }
- 
- getCurrentWeather(lat,long) {
- 	return this.http.get("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon"+long+"&appid=8131be7e3e6b2014b3af931e011bd730")
- 	.map(res => res.json())
- }
+ getCurrentWeather(lat,long){
+  	return this.http.get("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&appid=8131be7e3e6b2014b3af931e011bd730")
+  	.map(res => res.json())
+  }
 
-getForecastWeather(lat,long) {
- 	return this.http.get("http://api.openweathermap.org/data/2.5/forecast/daily?lat="+lat+"&lon"+long+"&appid=8131be7e3e6b2014b3af931e011bd730")
- 	.map(res => res.json())
- }
+  getForecastWeather(lat,long){
+  	return this.http.get("http://api.openweathermap.org/data/2.5/forecast/daily?lat="+lat+"&lon="+long+"&appid=8131be7e3e6b2014b3af931e011bd730")
+  	.map(res => res.json())
+  }
+
 }
